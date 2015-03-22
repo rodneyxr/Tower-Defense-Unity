@@ -1,0 +1,17 @@
+syntax: glob
+Library
+obj
+Temp
+*.csproj
+*.sln
+*.userprefs
+*.orig
+*.orig.meta
+.DS_Store
+thumbs.db
+*.unityproj
+*.pidb
+*.unity
+*.suo
+*.exe
+33percent_Turn-in_Data/
