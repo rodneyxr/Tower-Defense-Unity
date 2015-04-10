@@ -24,11 +24,11 @@ public class TowerBase : MonoBehaviour {
     }
 
     void OnMouseDown() {
-        if (tower == null)
+        if (tower == null) {
             tower = towerManager.SetupTower(gameObject);
-        else
+        } else {
             HUD.DisplayMessage("There is already a tower setup at this base!");
-            //print("There is already a tower setup at this base!");
+        }
     }
 
 }

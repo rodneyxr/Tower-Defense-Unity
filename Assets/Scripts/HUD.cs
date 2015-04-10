@@ -8,23 +8,28 @@ public class HUD : MonoBehaviour {
 
     public Text _textStage;
     public Text _textCoins;
+    public Text _textEnemies;
+    public Text _textLife;
     public Text _textMessage;
     public GameObject _panelMessage;
+    public GameObject _panelGameOver;
+    public Button _buttonStart;
 
     public static Text textStage;
     public static Text textCoins;
-    //public static Text textMessage;
-    //public static GameObject panelMessage;
-
-    private static Vector3 cachedBannerPosition;
-    private static Vector3 hiddenBannerPosition;
+    public static Text textEnemies;
+    public static Text textLife;
+    public static Button buttonStart;
+    public static GameObject panelGameOver;
 
     void Awake() {
         instance = this;
         textStage = _textStage;
         textCoins = _textCoins;
-        //textMessage = _textMessage;
-        //panelMessage = _panelMessage;
+        textEnemies = _textEnemies;
+        textLife = _textLife;
+        buttonStart = _buttonStart;
+        panelGameOver = _panelGameOver;
 
         // setup message panel
         _panelMessage.SetActive(false);

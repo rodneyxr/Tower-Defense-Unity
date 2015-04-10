@@ -4,22 +4,14 @@ using System.Collections;
 public class WayPoint : MonoBehaviour {
 
     public WayPoint next;
-    public bool start;
-    public bool end;
-
-    void Start() {
-
-    }
-
-    void Update() {
-
-    }
 
     void OnTriggerEnter(Collider other) {
         if (other.tag.Equals("Enemy")) {
             Enemy enemy = other.GetComponent<Enemy>();
-            if (end) {
+            if (next == null) {
                 Destroy(enemy.gameObject);
+                GameManager.EnemyKilled();
+                GameManager.EnemyAttacked();
             } else {
                 enemy.target = next.transform;
             }
