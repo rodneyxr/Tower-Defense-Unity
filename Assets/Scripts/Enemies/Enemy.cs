@@ -4,7 +4,7 @@ using System.Collections;
 public class Enemy : MonoBehaviour {
 
     public Transform target;
-    public float speed = .5f;
+    public float speed = 1f;
 
 
     void Start() {

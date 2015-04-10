@@ -13,3 +13,4 @@ thumbs.db
 *.pidb
 *.suo
 *.exe
+.vs/unitytd-csharp/v14/vbcs.cache/storage.ide

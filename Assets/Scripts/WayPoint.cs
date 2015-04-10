@@ -14,4 +14,15 @@ public class WayPoint : MonoBehaviour {
     void Update() {
 
     }
+
+    void OnTriggerEnter(Collider other) {
+        if (other.tag.Equals("Enemy")) {
+            Enemy enemy = other.GetComponent<Enemy>();
+            if (end) {
+                Destroy(enemy.gameObject);
+            } else {
+                enemy.target = next.transform;
+            }
+        }
+    }
 }
