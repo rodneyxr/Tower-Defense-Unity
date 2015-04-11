@@ -7,7 +7,7 @@ public class TowerBase : MonoBehaviour {
     public Material selectedMaterial;
     private Material defaultMaterial;
     private Renderer rend;
-    private GameObject tower;
+    private LaserTower tower;
 
     void Start() {
         towerManager = GameObject.Find("_Main").GetComponent<TowerManager>();
@@ -25,9 +25,20 @@ public class TowerBase : MonoBehaviour {
 
     void OnMouseDown() {
         if (tower == null) {
-            tower = towerManager.SetupTower(gameObject);
+            GameObject tObject = towerManager.SetupTower(gameObject);
+            if (tObject != null) {
+                tower = tObject.GetComponent<LaserTower>();
+            }
         } else {
-            HUD.DisplayMessage("There is already a tower setup at this base!");
+            if (GameManager.gameManager.coins < tower.cost) {
+                SFX.PlaySound(SFX.sfx.error);
+                HUD.DisplayMessage("You need at least " + tower.cost + " coins to upgrade this tower!");
+            } else if (!tower.CanUpgrade) {
+                SFX.PlaySound(SFX.sfx.error);
+                HUD.DisplayMessage("This tower is already maxed out!");
+            } else {
+                tower.Upgrade();
+            }
         }
     }
 

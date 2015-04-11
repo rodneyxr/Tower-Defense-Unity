@@ -1,10 +1,13 @@
 fileFormatVersion: 2
 guid: eaa1931a8b9d4024589cf52dcc08678b
-timeCreated: 1427068008
+timeCreated: 1428722391
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - target: {instanceID: 0}
+  - anim: {instanceID: 0}
+  - bloodSplat: {fileID: 170960, guid: 67d8f4cd03585c941962ef2a1af48d00, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

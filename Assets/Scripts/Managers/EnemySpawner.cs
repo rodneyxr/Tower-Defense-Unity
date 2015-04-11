@@ -26,6 +26,6 @@ public class EnemySpawner : MonoBehaviour {
     private void Spawn() {
         Enemy enemy = Instantiate(enemies[Random.Range(0, enemies.Length)], spawnPoint.transform.position, spawnPoint.transform.rotation) as Enemy;
         enemy.target = spawnPoint.next.transform;
-        enemy.speed = enemy.speed * Mathf.Pow(1.2f, (float)GameManager.stage - 1);
+        enemy.speed = enemy.speed * Mathf.Pow(1.2f, (float)GameManager.gameManager.stage - 1);
     }
 }

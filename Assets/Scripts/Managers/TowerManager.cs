@@ -14,8 +14,9 @@ public class TowerManager : MonoBehaviour {
 
         int cost = towers[selectedTower].GetComponent<LaserTower>().cost;
 
-        if (GameManager.coins >= cost) {
+        if (GameManager.gameManager.coins >= cost) {
             GameManager.ChargeCoins(cost);
+            SFX.PlaySound(SFX.sfx.purchase);
             return Instantiate(towers[selectedTower], new Vector3(towerBase.transform.position.x, towers[selectedTower].transform.position.y, towerBase.transform.position.z), Quaternion.identity) as GameObject;
         } else {
             HUD.DisplayMessage("You need at least " + cost + " coins to build this tower!");

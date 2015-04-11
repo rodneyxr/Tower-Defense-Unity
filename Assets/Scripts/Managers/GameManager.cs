@@ -3,14 +3,17 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour {
 
-    public static int coins = 100;
-    public static int enemiesRemaining;
-    public static int life = 10;
-    public static int stage = 1;
+    public static GameManager gameManager;
+
+    public int coins = 100;
+    public int enemiesRemaining;
+    public int life = 10;
+    public int stage = 1;
     public int initialNumberOfEnemies = 10;
     private EnemySpawner enemySpawner;
 
     void Start() {
+        gameManager = this;
         enemySpawner = GetComponent<EnemySpawner>();
         HUD.textCoins.text = "Coins: " + coins;
         HUD.textStage.text = "Stage: " + stage;
@@ -26,32 +29,35 @@ public class GameManager : MonoBehaviour {
     }
 
     public static void EnemyKilled() {
-        enemiesRemaining -= 1;
-        HUD.textEnemies.text = "Enemies: " + enemiesRemaining;
+        gameManager.enemiesRemaining -= 1;
+        HUD.textEnemies.text = "Enemies: " + gameManager.enemiesRemaining;
 
         // next stage
-        if (enemiesRemaining == 0) {
-            stage += 1;
+        if (gameManager.enemiesRemaining == 0) {
+            gameManager.stage += 1;
             GameManager.AddCoins(100);
-            HUD.textStage.text = "Stage: " + stage;
+            HUD.textStage.text = "Stage: " + gameManager.stage;
             HUD.buttonStart.gameObject.SetActive(true);
             HUD.textEnemies.gameObject.SetActive(false);
+            HUD.DisplayMessage("Stage " + gameManager.stage + " complete!");
+            SFX.PlaySound(SFX.sfx.levelUp);
         }
     }
 
     public static void EnemyAttacked() {
-        life -= 1;
-        HUD.textLife.text = "Life: " + life;
+        gameManager.life -= 1;
+        HUD.textLife.text = "Life: " + gameManager.life;
 
         // game over
-        if (life == 0) {
+        if (gameManager.life == 0) {
+            SFX.PlaySound(SFX.sfx.gameOver);
             HUD.panelGameOver.SetActive(true);
         }
     }
 
     public static void AddCoins(int coins) {
-        GameManager.coins += coins;
-        HUD.textCoins.text = "Coins: " + GameManager.coins;
+        gameManager.coins += coins;
+        HUD.textCoins.text = "Coins: " + gameManager.coins;
     }
 
     public static void ChargeCoins(int coins) {
@@ -59,7 +65,7 @@ public class GameManager : MonoBehaviour {
     }
 
     public void Quit() {
-        Application.Quit();
+        Application.LoadLevel("Menu");
     }
 
 }

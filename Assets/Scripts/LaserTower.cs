@@ -9,6 +9,8 @@ public class LaserTower : MonoBehaviour {
     public float range = 30f;
     public float delay = 2f;
     public int cost = 15;
+    public int[] upgradeCost = { 25, 50, 75 };
+    public int grade = -1;
 
     private bool canAttack = true;
 
@@ -23,6 +25,7 @@ public class LaserTower : MonoBehaviour {
         lr.SetPosition(0, transform.position);
         sphereCollider = GetComponent<SphereCollider>();
         sphereCollider.radius = range;
+        cost = upgradeCost[0];
     }
 
     void Update() {
@@ -41,8 +44,26 @@ public class LaserTower : MonoBehaviour {
         sphereCollider.radius = range;
     }
 
+    public void Upgrade() {
+        GameManager.ChargeCoins(cost);
+        grade += 1;
+        if (CanUpgrade)
+            cost = upgradeCost[grade + 1];
+        SFX.PlaySound(SFX.sfx.drill);
+        damage *= 1.7f;
+        range *= 1.8f;
+        delay *= .75f;
+        HUD.DisplayMessage("Tower upgraded to grade " + (grade + 2) + "!");
+    }
+
+    public bool CanUpgrade {
+        get { return grade < upgradeCost.Length - 1; }
+    }
+
     IEnumerator Attack(Enemy target) {
         canAttack = false;
+        SFX.PlaySound(SFX.sfx.laserShot);
+        barrel.transform.LookAt(target.transform);
         lr.SetPosition(1, target.transform.position);
         lr.enabled = true;
         target.Damage(damage);
